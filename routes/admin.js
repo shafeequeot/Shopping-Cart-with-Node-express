@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-// product listing
+
 
 let product = [{
   Name: "Samsung 1",
@@ -28,9 +28,19 @@ let product = [{
   image: "https://image.shutterstock.com/image-photo/stylish-man-using-laptop-startup-600w-295226588.jpg"
 }]
 
-/* GET home page. */
+/* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.render('index', { product});
+  res.render('admin/product-view',{admin:true, product})
 });
+
+router.get('/add-product',(req,res)=>{
+  res.render('admin/add-product')
+  console.log(req.body)
+})
+
+
+router.post('/add-product',function (req,res){
+  console.log(req.body)
+})
 
 module.exports = router;
