@@ -1,5 +1,7 @@
 var express = require('express');
+var productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
+
 
 
 
@@ -40,7 +42,17 @@ router.get('/add-product',(req,res)=>{
 
 
 router.post('/add-product',function (req,res){
-  console.log(req.body)
+  
+  productHelpers.addProduct(req.body,(result)=>{
+    let image = req.files.image
+    
+    
+    image.mv('./public/images/'+result.insertedId.toString()+'.jpg',(err,done)=>{
+      if(err) console.log("having error on moving image")
+      else res.render('admin/add-product')
+    })
+    
+  })
 })
-
+ 
 module.exports = router;

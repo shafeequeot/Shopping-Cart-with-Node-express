@@ -3,13 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db = require('./config/connection')
 
 
 
 var userRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var hbs = require('express-handlebars')
-// var fileUpload = require('express-fileupload')
+var fileUpload = require('express-fileupload')
 var app = express();
 
 // view engine setup
@@ -22,7 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(fileUpload())
+app.use(fileUpload())
+db.connection((err)=>{
+  if (err) console.log("db connection failed" + err)
+  else console.log("db connected success fully")
+})
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
