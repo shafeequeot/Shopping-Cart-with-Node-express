@@ -9,5 +9,11 @@ module.exports = {
             callback(data)
             
         })
+    },
+    getAllProduct:()=>{
+        return new Promise(async (resolve,reject)=>{
+            let allproduct = await db.get().collection('product').find().toArray()
+            resolve(allproduct)
+        })
     }
 }

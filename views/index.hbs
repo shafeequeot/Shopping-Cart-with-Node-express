@@ -8,14 +8,14 @@
 
         {{#each product}}
         <div class="col-md-3">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top"
-                    src="{{this.image}}"
+            <div class="card p-3 mb-3" style="width: 16.8rem; height:370px">
+                <img class="card-img-top" style="max-height: 170px;"
+                    src="/images/{{_id}}.jpg""
                     alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">{{this.Name}}</h5>
-                    <span>{{this.Category}}</span>
-                    <p class="card-text">{{this.Description}}</p>
+                    <h5 class="card-title">{{this.product}}</h5>
+                    <span>{{this.category}}</span>
+                    <p class="card-text">{{this.description}}</p>
                     <a href="#" class="btn btn-primary">Add to cart</a>
                 </div>
             </div>

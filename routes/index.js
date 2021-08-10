@@ -1,36 +1,38 @@
 var express = require('express');
 var router = express.Router();
+const db = require('../helpers/product-helpers')
+const userHelper = require('../helpers/user-helper')
 
 // product listing
 
-let product = [{
-  Name: "Samsung 1",
-  Category: "mobile",
-  Description: "entho oru phone valya karyalla",
-  image: "https://image.shutterstock.com/image-photo/happy-young-man-using-laptop-600w-1222971247.jpg"
-},
-{
-  Name: "Samsung 2",
-  Category: "mobile",
-  Description: "entho oru phone no mecham",
-  image: "https://image.shutterstock.com/image-photo/man-work-using-computer-hand-600w-1887501613.jpg"
-},
-{
-  Name: "iphone 1",
-  Category: "i pho",
-  Description: "entho valyalkar",
-  image: "https://image.shutterstock.com/image-photo/man-work-using-computer-hand-600w-1896665404.jpg"
-},
-{
-  Name: "opo 2",
-  Category: "mobile",
-  Description: "entho ssss opo oru phone no mecham",
-  image: "https://image.shutterstock.com/image-photo/stylish-man-using-laptop-startup-600w-295226588.jpg"
-}]
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { product});
+db.getAllProduct().then((product)=>{
+
+    res.render('index', { product});
+})
 });
 
+router.get('/login',(req,res,next)=>{
+res.render('user/login')
+})
+
+router.get('/signup',(req,res,nex)=>{
+    res.render('user/signup')
+}) 
+
+router.post('/signUp',(req,res,next)=>{
+    userHelper.doSignup(req.body).then((data)=>{
+        res.redirect('/login')
+    })
+})
+
+router.post('/login',(req,res)=>{ 
+    userHelper.doLogin(req.body).then((userData)=>{
+        console.log(userData)
+    })
+    // console.log(req.body)
+
+})
 module.exports = router;
